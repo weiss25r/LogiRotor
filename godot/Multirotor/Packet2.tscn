@@ -4,4 +4,6 @@
 
 [node name="Packet2" type="Node3D"]
 
-[node name="packet" parent="." instance=ExtResource("1_slx1e")]
+[node name="Node3D" type="Node3D" parent="."]
+
+[node name="packet" parent="Node3D" instance=ExtResource("1_slx1e")]
