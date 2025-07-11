@@ -16,7 +16,6 @@ size = Vector3(0.05, 0.05, 0.01)
 albedo_color = Color(1, 0, 0, 1)
 
 [node name="Robot" type="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.148837, 0)
 script = ExtResource("1_a2l0e")
 
 [node name="drone" type="RigidBody3D" parent="."]
