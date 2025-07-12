@@ -15,6 +15,7 @@ var f1 = Vector3(0,0,0)
 var f2 = Vector3(0,0,0)
 var f3 = Vector3(0,0,0)
 var f4 = Vector3(0,0,0)
+var attacched: bool = false
 
 var initial_position
 var initial_rotation

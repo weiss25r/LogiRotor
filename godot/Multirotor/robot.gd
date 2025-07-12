@@ -4,6 +4,7 @@ var drone
 @onready var label_x: Label = $"../Label_X"
 @onready var label_y: Label = $"../Label_Y"
 @onready var label_z: Label = $"../Label_Z"
+@onready var packet: RigidBody3D = $"../packet"
 
 @onready var started : bool = false
 
@@ -15,6 +16,7 @@ func _ready():
 	DDS.subscribe("f2")
 	DDS.subscribe("f3")
 	DDS.subscribe("f4")
+	DDS.subscribe("attached")
 
 func _process(delta: float) -> void:
 	var pose = drone.get_pose()
@@ -53,5 +55,14 @@ func _process(delta: float) -> void:
 	var f2 = DDS.read("f2")
 	var f3 = DDS.read("f3")
 	var f4 = DDS.read("f4")
+	var attached = DDS.read('attached')
+	
+	if(attached == 1):
+		print("ATTACCATO")
+		drone.grab_package(packet)
+		attached = 0
+	else: if(attached == 2):
+		print("STACCATO")
+		drone.drop_package(packet)
 	drone.set_forces(f1,f2,f3,f4)
 	#print(pos.z," ", pos.y)
