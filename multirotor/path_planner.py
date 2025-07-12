@@ -23,7 +23,7 @@ class PathPlanner():
         self.graph = Graph()
         
         for coordinate in coordinates:
-            self.nodes.append(NavigationNode(coordinate[1], coordinate[0]))
+            self.nodes.append(NavigationNode(coordinate[1], coordinate[0])) #si scambiano x e z a causa del ref. frame di godot
             
         for edge in edges:
             node_one = self.nodes[edge[0]]
