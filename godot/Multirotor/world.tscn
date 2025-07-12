@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://besrfxb6do24x"]
+[gd_scene load_steps=24 format=3 uid="uid://besrfxb6do24x"]
 
 [ext_resource type="PackedScene" uid="uid://h5picvcj4aj8" path="res://packet.tscn" id="2_aqk2v"]
 [ext_resource type="Script" uid="uid://blfon3x6pf5fc" path="res://reset_button.gd" id="2_fj7yv"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://b8r4t0mvm887h" path="res://start_button.gd" id="3_tlwt5"]
 [ext_resource type="ArrayMesh" uid="uid://cs6rn58igsbj" path="res://assets/3dr_arducopter_quad_x.obj" id="5_dwbse"]
 [ext_resource type="PackedScene" uid="uid://b3580pn26ewgu" path="res://obstacle.tscn" id="7_pkg7o"]
+[ext_resource type="PackedScene" uid="uid://bx7t6nwwgf2aw" path="res://wharehouse.tscn" id="8_gbfbk"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ykxtl"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -120,10 +121,6 @@ mesh = SubResource("BoxMesh_msus4")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacles/Wall4"]
 shape = SubResource("ConvexPolygonShape3D_4osb2")
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.999586, -0.0138976, 0.0251778, 0.00787532, 0.974296, 0.225133, -0.0276594, -0.224842, 0.974003, -0.00823641, 0.376004, 4.54633)
-fov = 100.0
-
 [node name="Label_X" type="Label" parent="."]
 offset_right = 40.0
 offset_bottom = 23.0
@@ -176,6 +173,10 @@ collision_mask = 6
 physics_material_override = SubResource("PhysicsMaterial_dwbse")
 script = ExtResource("3_036b0")
 
+[node name="Camera3D" type="Camera3D" parent="Node3D/drone"]
+transform = Transform3D(1, 0, 0, 0, 0.980948, 0.194269, 0, -0.194269, 0.980948, -0.0513351, 1.31556, 2.70295)
+fov = 100.0
+
 [node name="Hook" type="Node3D" parent="Node3D/drone"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0141316, -0.0347975, 0.0131966)
 
@@ -193,10 +194,12 @@ mesh = SubResource("PrismMesh_ioo17")
 surface_material_override/0 = SubResource("StandardMaterial3D_wse8f")
 
 [node name="Obstacle" parent="." instance=ExtResource("7_pkg7o")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3415, 1.00643, -0.00533879)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.96008, 1.00643, 0.747779)
 collision_layer = 4
 collision_mask = 3
 mass = 49.98
 sleeping = true
 freeze = true
 freeze_mode = 1
+
+[node name="wharehouse" parent="." instance=ExtResource("8_gbfbk")]
