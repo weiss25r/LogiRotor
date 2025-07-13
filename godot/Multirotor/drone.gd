@@ -5,11 +5,10 @@ extends RigidBody3D
 @onready var p2 = Vector3(-L,0,L)
 @onready var p3 = Vector3(-L,0,-L)
 @onready var p4 = Vector3(L,0,-L)
-@onready var packet: RigidBody3D = $"../../packet"
+#@onready var packet: RigidBody3D = $"../../packet"
 @onready var hook: Node3D = $"Hook"
-@onready var packet_collision: CollisionShape3D = $"../../packet/CollisionShape3D"
 @onready var drone: RigidBody3D = $"."
-
+var packet :RigidBody3D
 
 var f1 = Vector3(0,0,0)
 var f2 = Vector3(0,0,0)
@@ -134,3 +133,11 @@ func drop_package(packet_body: RigidBody3D):
 	drone.set_collision_mask_value(2,true)
 
 	print("Pacco rilasciato!")
+
+
+	
+
+
+func _on_area_3d_area_entered(area: Area3D) -> void:
+	print("entro nel campo di collisione: ",area.get_parent())
+	packet = area.get_parent()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://besrfxb6do24x"]
+[gd_scene load_steps=28 format=3 uid="uid://besrfxb6do24x"]
 
 [ext_resource type="ArrayMesh" uid="uid://d3diufke0luxa" path="res://assets/Container_low.obj" id="1_ic0uy"]
 [ext_resource type="PackedScene" uid="uid://h5picvcj4aj8" path="res://packet.tscn" id="2_aqk2v"]
@@ -45,6 +45,9 @@ size = Vector3(1.37793, 1.91461, 3.42377)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_70uel"]
 albedo_texture = ExtResource("2_k3n1d")
 
+[sub_resource type="LabelSettings" id="LabelSettings_ic0uy"]
+font_size = 23
+
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_dwbse"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_gbfbk"]
@@ -55,6 +58,9 @@ size = Vector3(0.05, 0.05, 0.01)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wse8f"]
 albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ic0uy"]
+size = Vector3(0.33783, 0.156464, 0.349854)
 
 [node name="World" type="Node3D"]
 
@@ -69,7 +75,7 @@ shadow_enabled = true
 metadata/_edit_lock_ = true
 
 [node name="Floor" type="StaticBody3D" parent="Obstacles"]
-transform = Transform3D(2.845, 0, 0, 0, 2.845, 0, 0, 0, 2.845, 0, -0.08, -6.71)
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, -0.08, -6.71)
 collision_layer = 4
 collision_mask = 3
 physics_material_override = SubResource("PhysicsMaterial_pxise")
@@ -84,10 +90,9 @@ shape = SubResource("ConvexPolygonShape3D_gphqx")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacles/Floor"]
 shape = SubResource("BoxShape3D_rj7wp")
-disabled = true
 
 [node name="Floor2" type="StaticBody3D" parent="Obstacles"]
-transform = Transform3D(2.845, 0, 0, 0, 2.845, 0, 0, 0, 2.845, 0, -0.08, 6.57)
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, -0.08, 6.57)
 collision_layer = 4
 collision_mask = 3
 physics_material_override = SubResource("PhysicsMaterial_pxise")
@@ -98,11 +103,11 @@ mesh = SubResource("PlaneMesh_5jmwy")
 surface_material_override/0 = SubResource("StandardMaterial3D_p5b3b")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="Obstacles/Floor2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.052)
 shape = SubResource("ConvexPolygonShape3D_gphqx")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Obstacles/Floor2"]
 shape = SubResource("BoxShape3D_rj7wp")
-disabled = true
 
 [node name="Container" type="StaticBody3D" parent="Obstacles"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.85989, 0, 2.25714)
@@ -180,6 +185,14 @@ offset_bottom = 97.0
 theme_override_font_sizes/font_size = 20
 text = "Z"
 
+[node name="Tutorial" type="Label" parent="."]
+offset_left = 1398.0
+offset_top = 1034.0
+offset_right = 1905.0
+offset_bottom = 1077.0
+text = "Hold Right Mouse button to move the camera"
+label_settings = SubResource("LabelSettings_ic0uy")
+
 [node name="ResetButton" type="Button" parent="."]
 custom_minimum_size = Vector2(100, 50)
 offset_left = 3.0
@@ -214,7 +227,7 @@ transform = Transform3D(1, 0, 0, 0, 0.980948, 0.194269, 0, -0.194269, 0.980948, 
 fov = 100.0
 
 [node name="Node3D" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0980538, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.524652, 0)
 script = ExtResource("3_dwbse")
 
 [node name="drone" type="RigidBody3D" parent="Node3D"]
@@ -239,6 +252,13 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.1
 mesh = SubResource("PrismMesh_ioo17")
 surface_material_override/0 = SubResource("StandardMaterial3D_wse8f")
 
+[node name="Area3D" type="Area3D" parent="Node3D/drone"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/drone/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0038147, -0.0835041, 0.00427246)
+shape = SubResource("BoxShape3D_ic0uy")
+debug_color = Color(0.827279, 0.4095, 0.0789612, 0.42)
+
 [node name="Obstacle" parent="." instance=ExtResource("7_pkg7o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.51401, 1.00643, 0.747779)
 collision_layer = 4
@@ -249,3 +269,14 @@ freeze = true
 freeze_mode = 1
 
 [node name="wharehouse" parent="." instance=ExtResource("8_gbfbk")]
+
+[node name="packet2" parent="." instance=ExtResource("2_aqk2v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.13407, 2.31778)
+mass = 0.05
+
+[node name="packet3" parent="." instance=ExtResource("2_aqk2v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.05036, 0.13407, 1.37991)
+mass = 0.05
+
+[connection signal="area_entered" from="Node3D/drone/Area3D" to="Node3D" method="_on_area_3d_area_entered"]
+[connection signal="area_entered" from="Node3D/drone/Area3D" to="Node3D/drone" method="_on_area_3d_area_entered"]

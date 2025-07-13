@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://h5picvcj4aj8"]
+[gd_scene load_steps=12 format=3 uid="uid://h5picvcj4aj8"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_07qeb"]
 size = Vector3(0.608337, 0.339905, 0.460693)
@@ -31,6 +31,9 @@ albedo_color = Color(1, 0.670588, 0.0470588, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_ub3qn"]
 material = SubResource("StandardMaterial3D_g1vcl")
 size = Vector3(0.59, 0.32, 0.455)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_an3gc"]
+size = Vector3(0.280685, 0.189796, 0.21814)
 
 [node name="packet" type="RigidBody3D"]
 collision_layer = 2
@@ -78,3 +81,10 @@ skeleton = NodePath("../..")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.169079, 0.161259, 0.132126)
 mesh = SubResource("PlaneMesh_an3gc")
 skeleton = NodePath("../..")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000384346, 0.033544, -0.000276133)
+shape = SubResource("BoxShape3D_an3gc")
+debug_color = Color(0.872472, 0.461766, 0.162894, 0.42)

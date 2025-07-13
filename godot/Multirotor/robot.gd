@@ -4,10 +4,11 @@ var drone
 @onready var label_x: Label = $"../Label_X"
 @onready var label_y: Label = $"../Label_Y"
 @onready var label_z: Label = $"../Label_Z"
-@onready var packet: RigidBody3D = $"../packet"
+
 
 @onready var started : bool = false
 
+var packet: RigidBody3D
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	#inizializzazione server
@@ -66,3 +67,8 @@ func _process(delta: float) -> void:
 		drone.drop_package(packet)
 	drone.set_forces(f1,f2,f3,f4)
 	#print(pos.z," ", pos.y)
+
+
+func _on_area_3d_area_entered(area: Area3D) -> void:
+	print("entro nel campo di collisione: ",area.get_parent())
+	packet = area.get_parent()

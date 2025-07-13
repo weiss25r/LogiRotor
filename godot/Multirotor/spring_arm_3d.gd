@@ -18,7 +18,7 @@ func _ready():
 		set_process(false) # Disabilita lo script se non c'è il player
 
 func _unhandled_input(event):
-	if event is InputEventMouseMotion:
+	if event is InputEventMouseMotion and Input.is_action_pressed("HoldMouseDx"):
 		yaw -= event.relative.x * mouse_sensitivity
 		pitch += event.relative.y * mouse_sensitivity
 		pitch = clamp(pitch, deg_to_rad(min_pitch), deg_to_rad(max_pitch))
