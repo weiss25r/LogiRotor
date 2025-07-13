@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bx7t6nwwgf2aw"]
+[gd_scene load_steps=6 format=3 uid="uid://bx7t6nwwgf2aw"]
 
 [ext_resource type="ArrayMesh" uid="uid://creygtej0qf7w" path="res://assets/warehouse6.obj" id="1_2wocl"]
 
@@ -10,6 +10,9 @@ size = Vector3(1.79871, 0.970642, 1.77267)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2wocl"]
 size = Vector3(17.2373, 5.0116, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8k3q2"]
+size = Vector3(0.733154, 0.637238, 1.29196)
 
 [node name="wharehouse" type="Node3D"]
 
@@ -228,3 +231,39 @@ collision_mask = 3
 [node name="CollisionShape3D" type="CollisionShape3D" parent="barriers/StaticBody3D10"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0112305, 2.0058, -0.353075)
 shape = SubResource("BoxShape3D_2wocl")
+
+[node name="StaticBody3D11" type="StaticBody3D" parent="barriers"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.73408, 0, 0)
+collision_layer = 4
+collision_mask = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="barriers/StaticBody3D11"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0146309, 0.337105, 0.384232)
+shape = SubResource("BoxShape3D_8k3q2")
+
+[node name="StaticBody3D12" type="StaticBody3D" parent="barriers"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.55297, 0, -3.92959)
+collision_layer = 4
+collision_mask = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="barriers/StaticBody3D12"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0146309, 0.337105, 0.384232)
+shape = SubResource("BoxShape3D_8k3q2")
+
+[node name="StaticBody3D13" type="StaticBody3D" parent="barriers"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.557224, 0, -12.9992)
+collision_layer = 4
+collision_mask = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="barriers/StaticBody3D13"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0146309, 0.337105, 0.384232)
+shape = SubResource("BoxShape3D_8k3q2")
+
+[node name="StaticBody3D14" type="StaticBody3D" parent="barriers"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.43262, 0, 3.72599)
+collision_layer = 4
+collision_mask = 3
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="barriers/StaticBody3D14"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0146309, 0.337105, 0.384232)
+shape = SubResource("BoxShape3D_8k3q2")
