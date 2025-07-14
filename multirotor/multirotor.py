@@ -15,7 +15,7 @@ from lib.system.trajectory import *
 
 class Multirotor:
 
-    def __init__(self):
+    def __init__(self, x_origin, y_origin, z_origin):
         self.vz_control = PID_Controller(5.0, 10.0, 0.0, 5)
         self.z_control = PID_Controller(2.0, 0.0, 0.0, 2)  # 2 m/s
         
@@ -31,9 +31,9 @@ class Multirotor:
         self.vx_control = PID_Controller(0.4, 0.015, 0.25, math.radians(30))
         self.x_control = PID_Controller(2.0, 0.0, 0.0, 4.0)
         
-        self.z_target = 0.0
-        self.x_target = 0.0
-        self.y_target = 0.0
+        self.z_target = z_origin
+        self.x_target = x_origin
+        self.y_target = y_origin
 
     def evaluate(self, delta_t, z, vz, x, vx, y, vy, roll, roll_rate, pitch, pitch_rate):
         self.x = x
@@ -82,7 +82,19 @@ class AbstractMovement:
     def movement_done(self):
         return False
 
-
+class AttachMovement():
+    def __init__(self, movement):
+        self.movement = movement
+    def start(self):
+        pass
+    def evaluate(self, delta_t):
+        return self.movement
+    
+    def movement_done(self):
+        return False 
+    
+    
+    
 class ZMovement(AbstractMovement):
     
     def __init__(self, _robot, _z_target):

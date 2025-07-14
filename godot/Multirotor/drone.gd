@@ -125,7 +125,8 @@ func drop_package(packet_body: RigidBody3D):
 		get_tree().current_scene.add_child(packet_body)
 	
 	
-	packet_body.transform =  drone.transform
+	packet_body.global_position =  drone.global_position
+	print(drone.transform.origin)
 	packet_body.freeze = false
 	packet_body.freeze_mode = FREEZE_MODE_KINEMATIC # Riporta alla modalità normale
 	packet_body.sleeping = false # Riattiva la simulazione

@@ -78,11 +78,11 @@ spot_range = 6.85401
 spot_angle = 54.7492
 
 [node name="SpotLight3D8" type="SpotLight3D" parent="lights"]
-transform = Transform3D(1, 0, 0, 0, 0.031812, 0.999494, 0, -0.999494, 0.031812, 4.41929, 3.72181, 10.2797)
-light_energy = 16.0
+transform = Transform3D(1, 0, 0, 0, 0.031812, 0.999494, 0, -0.999494, 0.031812, 5.56506, 3.72181, 11.8633)
+light_energy = 7.111
 light_indirect_energy = 1.306
 light_specular = 2.029
-spot_range = 6.85401
+spot_range = 5.16384
 spot_angle = 54.7492
 
 [node name="SpotLight3D9" type="SpotLight3D" parent="lights"]
