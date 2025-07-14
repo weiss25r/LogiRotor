@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://besrfxb6do24x"]
+[gd_scene load_steps=34 format=3 uid="uid://besrfxb6do24x"]
 
 [ext_resource type="ArrayMesh" uid="uid://d3diufke0luxa" path="res://assets/Container_low.obj" id="1_ic0uy"]
 [ext_resource type="PackedScene" uid="uid://h5picvcj4aj8" path="res://packet.tscn" id="2_aqk2v"]
@@ -62,6 +62,20 @@ albedo_color = Color(1, 0, 0, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ic0uy"]
 size = Vector3(0.33783, 0.156464, 0.349854)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yhfw1"]
+albedo_color = Color(0.00351917, 0.00351917, 0.00351917, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_k3n1d"]
+material = SubResource("StandardMaterial3D_yhfw1")
+size = Vector3(0.01, 0.07, 0.105)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7xofo"]
+albedo_color = Color(0.280544, 0.264153, 0.257073, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_2o6r5"]
+material = SubResource("StandardMaterial3D_7xofo")
+size = Vector3(0.021, 0.205, 0.021)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_k3n1d"]
 size = Vector3(1.70459, 0.249512, 3.51221)
@@ -263,6 +277,23 @@ surface_material_override/0 = SubResource("StandardMaterial3D_wse8f")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0038147, -0.0835041, 0.00427246)
 shape = SubResource("BoxShape3D_ic0uy")
 debug_color = Color(0.827279, 0.4095, 0.0789612, 0.42)
+
+[node name="Gancio" type="Node3D" parent="Node3D/drone"]
+visible = false
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Node3D/drone/Gancio"]
+transform = Transform3D(0.939693, -0.34202, 0, 0.34202, 0.939693, 0, 0, 0, 1, 0.0701274, 0.0436767, 0)
+mesh = SubResource("BoxMesh_k3n1d")
+skeleton = NodePath("../../..")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Node3D/drone/Gancio"]
+transform = Transform3D(0.939693, 0.34202, 0, -0.34202, 0.939693, 0, 0, 0, 1, -0.0705996, 0.0436767, 0)
+mesh = SubResource("BoxMesh_k3n1d")
+skeleton = NodePath("../../..")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D/drone/Gancio"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00446832, 0)
+mesh = SubResource("BoxMesh_2o6r5")
 
 [node name="Obstacle" parent="." instance=ExtResource("7_pkg7o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.51401, 1.00643, 0.747779)

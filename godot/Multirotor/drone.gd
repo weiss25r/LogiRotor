@@ -7,6 +7,7 @@ extends RigidBody3D
 @onready var p4 = Vector3(L,0,-L)
 #@onready var packet: RigidBody3D = $"../../packet"
 @onready var hook: Node3D = $"Hook"
+@onready var visible_hook: Node3D = $"Gancio"
 @onready var drone: RigidBody3D = $"."
 var packet :RigidBody3D
 
@@ -86,7 +87,7 @@ func get_velocity():
 	
 func grab_package(package_body: RigidBody3D):
 	
-
+	
 	package_body.sleeping = true # Mette il corpo in stato di riposo per la simulazione fisica
 
 	# Impostare la modalità del RigidBody3D su STATIC
@@ -113,6 +114,7 @@ func grab_package(package_body: RigidBody3D):
 	packet.set_collision_mask_value(1,false)
 	drone.set_collision_mask_value(2,false)
 	
+	visible_hook.visible = true
 	print("Pacco agganciato!")
 
 func drop_package(packet_body: RigidBody3D):
@@ -132,7 +134,8 @@ func drop_package(packet_body: RigidBody3D):
 	packet_body.sleeping = false # Riattiva la simulazione
 	packet_body.set_collision_mask_value(1,true)
 	drone.set_collision_mask_value(2,true)
-
+	
+	visible_hook.visible = false
 	print("Pacco rilasciato!")
 
 
