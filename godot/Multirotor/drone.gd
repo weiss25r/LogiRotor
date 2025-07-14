@@ -29,12 +29,12 @@ func _ready():
 	initial_rotation = global_rotation
 	initial_velocity = linear_velocity
 	initial_angular_velocity = angular_velocity
-
+	
 func do_reset():
 	perform_reset = true
 	
 func reset():
-	position = initial_position
+	global_position = initial_position
 	rotation = initial_rotation
 	linear_velocity = initial_velocity 
 	angular_velocity = initial_angular_velocity
