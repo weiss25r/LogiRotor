@@ -12,7 +12,7 @@ class ControlSystem:
         edges = pd.read_csv(edges_path, sep=' ')
         
         coords.apply(
-            func = lambda node: self.path_planner.add_node(NavigationNode(node['X'], node['Y'], node['Z'], node['TYPE'])), 
+            func = lambda node: self.path_planner.add_node(NavigationNode(x=node['Y'], y=node['X'], z=node['Z'], node_type=node['TYPE'])), 
             axis=1
         )
         

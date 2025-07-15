@@ -54,6 +54,8 @@ class PathPlanner():
         coordinates = [node.get_coordinates() for node in path.nodes]
         move_list = []
         current_z = 0
+        current_x = robot.y_target
+        current_y = robot.x_target
         
         for node in path.nodes:
             coords = node.get_coordinates()
@@ -61,7 +63,9 @@ class PathPlanner():
             if (node.type == 'MOV') and node.z != current_z:
                 move_list.append(ZMovement(robot, node.z))
 
-            move_list.append(XYMovement(robot, coords[1], coords[0]))
+
+            if node.x != current_x or node.y != current_y:
+                move_list.append(XYMovement(robot, coords[0], coords[1]))
             
             if node.type == 'START':
                 move_list.append(ZMovement(robot, coords[2]))
@@ -73,11 +77,6 @@ class PathPlanner():
                 move_list.append(AttachMovement(0))
                 
             current_z = node.z
-
-        return move_list                
-            
-        
-        movements = [XYMovement(robot, coord[0], coord[1]) for coord in coordinates]
-        return movements
-    
-    
+            current_x = node.x
+            current_y = node.y
+        return move_list
