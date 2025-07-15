@@ -129,7 +129,7 @@ class XYMovement(AbstractMovement):
         dx = self.x_target - self.robot.x
         dy = self.y_target - self.robot.y
         dist = math.sqrt(dx*dx + dy*dy)
-        return dist < 0.01
+        return dist < 0.1
      
 
 class Circle(AbstractMovement):
