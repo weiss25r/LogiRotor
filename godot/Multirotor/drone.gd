@@ -5,18 +5,16 @@ extends RigidBody3D
 @onready var p2 = Vector3(-L,0,L)
 @onready var p3 = Vector3(-L,0,-L)
 @onready var p4 = Vector3(L,0,-L)
-#@onready var packet: RigidBody3D = $"../../packet"
 @onready var hook: Node3D = $"Hook"
 @onready var visible_hook: Node3D = $"Gancio"
 @onready var drone: RigidBody3D = $"."
-var packet :RigidBody3D
 
+var packet :RigidBody3D
 var f1 = Vector3(0,0,0)
 var f2 = Vector3(0,0,0)
 var f3 = Vector3(0,0,0)
 var f4 = Vector3(0,0,0)
 var attacched: bool = false
-
 var initial_position
 var initial_rotation
 var initial_velocity
@@ -42,18 +40,7 @@ func reset():
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	#var f = 2.5
-	#var f1 = Vector3(0,f + 0.5,0)
-	#var f2 = Vector3(0,f + 0.5,0)
-	#var f3 = Vector3(0,f - 0.5,0)
-	#var f4 = Vector3(0,f - 0.5,0)
-	if Input.is_action_just_pressed("space"): # Utilizziamo l'azione predefinita "space"
-		if !grabbed:
-			grab_package(packet)
-			grabbed = true
-		else:
-			drop_package(packet)
-			grabbed = false
+	
 	if perform_reset:
 		reset()
 		perform_reset = false
@@ -87,16 +74,11 @@ func get_velocity():
 	
 func grab_package(package_body: RigidBody3D):
 	
-	
-	package_body.sleeping = true # Mette il corpo in stato di riposo per la simulazione fisica
-
-	# Impostare la modalità del RigidBody3D su STATIC
-	# Questo fa sì che il pacco non venga più mosso dalla fisica, ma solo dal suo genitore.
+	#Gestione fisica del pacchetto
+	package_body.sleeping = true 
 	package_body.freeze = true
 	package_body.freeze_mode = FREEZE_MODE_STATIC
 
-	# Mantenere la posizione globale del pacco prima di cambiare genitore
-	# Questo è FONDAMENTALE per evitare che il pacco "salti" all'origine del punto di aggancio.
 	var old_global_transform = package_body.global_transform
 #
 	# Rimuovi il pacco dal suo genitore attuale
@@ -110,7 +92,6 @@ func grab_package(package_body: RigidBody3D):
 	# Calcola la nuova trasformazione locale rispetto al hook_point mantenendo la posizione globale.
 	package_body.transform = hook.global_transform.affine_inverse() * old_global_transform
 	
-	# packet_collision.disabled = true
 	packet.set_collision_mask_value(1,false)
 	drone.set_collision_mask_value(2,false)
 	
@@ -124,15 +105,15 @@ func drop_package(packet_body: RigidBody3D):
 	if packet_body.get_parent() != null:
 		packet_body.get_parent().remove_child(packet)
 
-	# Riaggancia il pacco alla scena principale (o a un nodo "world" appropriato)
+	# Riaggancia il pacco alla scena world
 		get_tree().current_scene.add_child(packet_body)
 	
-	
+	#Reset gestione fisica del pacchetto
 	packet_body.global_position =  initial_position
 	print(drone.transform.origin)
 	packet_body.freeze = false
-	packet_body.freeze_mode = FREEZE_MODE_KINEMATIC # Riporta alla modalità normale
-	packet_body.sleeping = false # Riattiva la simulazione
+	packet_body.freeze_mode = FREEZE_MODE_KINEMATIC 
+	packet_body.sleeping = false 
 	packet_body.set_collision_mask_value(1,true)
 	drone.set_collision_mask_value(2,true)
 	
@@ -144,5 +125,4 @@ func drop_package(packet_body: RigidBody3D):
 
 
 func _on_area_3d_area_entered(area: Area3D) -> void:
-	print("entro nel campo di collisione: ",area.get_parent())
 	packet = area.get_parent()

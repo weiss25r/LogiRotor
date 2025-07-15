@@ -1,10 +1,9 @@
 extends SpringArm3D
-# Script attaccato al nodo SpringArm3D
 
 @export var mouse_sensitivity: float = 0.01
 @export var min_pitch: float = -60.0
 @export var max_pitch: float = 60.0
-@onready var player_node: RigidBody3D = $"../Node3D/drone" # <-- Riferimento al tuo nodo personaggio
+@onready var player_node: RigidBody3D = $"../Drone3D/drone"
 
 var pitch: float = 0.0
 var yaw: float = 0.0
@@ -12,10 +11,9 @@ var yaw: float = 0.0
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	if player_node == null:
-		# Assicurati di assegnare il nodo Player dall'Inspector!
-		# Oppure cerca il nodo se il tuo setup è più complesso
+	
 		printerr("Player node not assigned to camera script!")
-		set_process(false) # Disabilita lo script se non c'è il player
+		set_process(false) 
 
 func _unhandled_input(event):
 	if event is InputEventMouseMotion and Input.is_action_pressed("HoldMouseDx"):
@@ -32,7 +30,7 @@ func _physics_process(delta):
 	if player_node != null:
 		global_transform.origin = player_node.global_transform.origin
 
-	# Gestione del mouse (già presente, solo per completezza)
+	# Gestione del mouse
 	if Input.is_action_just_pressed("ui_cancel"):
 		if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)

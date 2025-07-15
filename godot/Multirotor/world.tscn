@@ -1,12 +1,11 @@
-[gd_scene load_steps=34 format=3 uid="uid://besrfxb6do24x"]
+[gd_scene load_steps=33 format=3 uid="uid://besrfxb6do24x"]
 
 [ext_resource type="ArrayMesh" uid="uid://d3diufke0luxa" path="res://assets/Container_low.obj" id="1_ic0uy"]
-[ext_resource type="PackedScene" uid="uid://h5picvcj4aj8" path="res://packet.tscn" id="2_aqk2v"]
+[ext_resource type="PackedScene" uid="uid://h5picvcj4aj8" path="res://packet_mesh.tscn" id="2_aqk2v"]
 [ext_resource type="Script" uid="uid://blfon3x6pf5fc" path="res://reset_button.gd" id="2_fj7yv"]
 [ext_resource type="Texture2D" uid="uid://d1qdeb0cwhw5c" path="res://assets/Container_low.png" id="2_k3n1d"]
 [ext_resource type="Script" uid="uid://dbehyafaxwe5y" path="res://drone.gd" id="3_036b0"]
 [ext_resource type="Script" uid="uid://c7uq6oieouf2b" path="res://robot.gd" id="3_dwbse"]
-[ext_resource type="Script" uid="uid://b8r4t0mvm887h" path="res://start_button.gd" id="3_tlwt5"]
 [ext_resource type="ArrayMesh" uid="uid://cs6rn58igsbj" path="res://assets/3dr_arducopter_quad_x.obj" id="5_dwbse"]
 [ext_resource type="Script" uid="uid://pi57f5jdt6gj" path="res://spring_arm_3d.gd" id="6_ioo17"]
 [ext_resource type="PackedScene" uid="uid://b3580pn26ewgu" path="res://obstacle.tscn" id="7_pkg7o"]
@@ -220,20 +219,6 @@ offset_bottom = 164.0
 text = "Reset"
 script = ExtResource("2_fj7yv")
 
-[node name="StartButton" type="Button" parent="."]
-visible = false
-custom_minimum_size = Vector2(100, 60)
-offset_left = 5.0
-offset_top = 181.0
-offset_right = 105.0
-offset_bottom = 241.0
-text = "Start"
-script = ExtResource("3_tlwt5")
-
-[node name="packet" parent="." instance=ExtResource("2_aqk2v")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.197, 0.902, 11.579)
-mass = 0.05
-
 [node name="SpringArm3D" type="SpringArm3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.602646, 0.801168)
 collision_mask = 4
@@ -245,53 +230,53 @@ script = ExtResource("6_ioo17")
 transform = Transform3D(1, 0, 0, 0, 0.980948, 0.194269, 0, -0.194269, 0.980948, -0.0513351, 1.62096, 1.67972)
 fov = 100.0
 
-[node name="Node3D" type="Node3D" parent="."]
+[node name="Drone3D" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.37055, 0.116333, 12.1168)
 script = ExtResource("3_dwbse")
 
-[node name="drone" type="RigidBody3D" parent="Node3D"]
+[node name="drone" type="RigidBody3D" parent="Drone3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.207344, 0)
 collision_mask = 6
 physics_material_override = SubResource("PhysicsMaterial_dwbse")
 script = ExtResource("3_036b0")
 
-[node name="Hook" type="Node3D" parent="Node3D/drone"]
+[node name="Hook" type="Node3D" parent="Drone3D/drone"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0141316, -0.0347975, 0.0131966)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D/drone"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Drone3D/drone"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 mesh = ExtResource("5_dwbse")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/drone"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Drone3D/drone"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 shape = SubResource("ConvexPolygonShape3D_gbfbk")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="Node3D/drone"]
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Drone3D/drone"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.156716, -0.00145889)
 mesh = SubResource("PrismMesh_ioo17")
 surface_material_override/0 = SubResource("StandardMaterial3D_wse8f")
 
-[node name="Area3D" type="Area3D" parent="Node3D/drone"]
+[node name="Area3D" type="Area3D" parent="Drone3D/drone"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Node3D/drone/Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Drone3D/drone/Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0038147, -0.0835041, 0.00427246)
 shape = SubResource("BoxShape3D_ic0uy")
 debug_color = Color(0.827279, 0.4095, 0.0789612, 0.42)
 
-[node name="Gancio" type="Node3D" parent="Node3D/drone"]
+[node name="Gancio" type="Node3D" parent="Drone3D/drone"]
 visible = false
 
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="Node3D/drone/Gancio"]
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Drone3D/drone/Gancio"]
 transform = Transform3D(0.939693, -0.34202, 0, 0.34202, 0.939693, 0, 0, 0, 1, 0.0701274, 0.0436767, 0)
 mesh = SubResource("BoxMesh_k3n1d")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D4" type="MeshInstance3D" parent="Node3D/drone/Gancio"]
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Drone3D/drone/Gancio"]
 transform = Transform3D(0.939693, 0.34202, 0, -0.34202, 0.939693, 0, 0, 0, 1, -0.0705996, 0.0436767, 0)
 mesh = SubResource("BoxMesh_k3n1d")
 skeleton = NodePath("../../..")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D/drone/Gancio"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Drone3D/drone/Gancio"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00446832, 0)
 mesh = SubResource("BoxMesh_2o6r5")
 
@@ -306,12 +291,20 @@ freeze_mode = 1
 
 [node name="wharehouse" parent="." instance=ExtResource("8_gbfbk")]
 
+[node name="packet" parent="." instance=ExtResource("2_aqk2v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.197, 0.902, 11.579)
+mass = 0.05
+
 [node name="packet2" parent="." instance=ExtResource("2_aqk2v")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.197, 0.804521, 11.0562)
 mass = 0.05
 
 [node name="packet3" parent="." instance=ExtResource("2_aqk2v")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.197, 0.916067, 12.9101)
+mass = 0.05
+
+[node name="packet4" parent="." instance=ExtResource("2_aqk2v")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.197, 0.916, 12.2667)
 mass = 0.05
 
 [node name="truck" type="Node3D" parent="."]
@@ -329,9 +322,5 @@ collision_mask = 3
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.045166, -0.544765, 0.255127)
 shape = SubResource("BoxShape3D_k3n1d")
 
-[node name="packet4" parent="." instance=ExtResource("2_aqk2v")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.197, 0.916, 12.2667)
-mass = 0.05
-
-[connection signal="area_entered" from="Node3D/drone/Area3D" to="Node3D" method="_on_area_3d_area_entered"]
-[connection signal="area_entered" from="Node3D/drone/Area3D" to="Node3D/drone" method="_on_area_3d_area_entered"]
+[connection signal="area_entered" from="Drone3D/drone/Area3D" to="Drone3D" method="_on_area_3d_area_entered"]
+[connection signal="area_entered" from="Drone3D/drone/Area3D" to="Drone3D/drone" method="_on_area_3d_area_entered"]
