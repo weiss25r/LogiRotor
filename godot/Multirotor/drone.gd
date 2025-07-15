@@ -120,6 +120,7 @@ func grab_package(package_body: RigidBody3D):
 func drop_package(packet_body: RigidBody3D):
 		
 	# Rimuovi il pacco dal suo genitore (il hook_point del drone)
+	initial_position = packet_body.global_position
 	if packet_body.get_parent() != null:
 		packet_body.get_parent().remove_child(packet)
 
@@ -127,7 +128,7 @@ func drop_package(packet_body: RigidBody3D):
 		get_tree().current_scene.add_child(packet_body)
 	
 	
-	packet_body.global_position =  drone.global_position
+	packet_body.global_position =  initial_position
 	print(drone.transform.origin)
 	packet_body.freeze = false
 	packet_body.freeze_mode = FREEZE_MODE_KINEMATIC # Riporta alla modalità normale

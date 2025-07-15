@@ -7,3 +7,4 @@ func _ready() -> void:
 	
 func on_pressed():
 	drone.do_reset()
+	get_tree().reload_current_scene()
