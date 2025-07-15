@@ -20,8 +20,10 @@ class ControlSystem:
             func = lambda edge: self.path_planner.add_edge(edge['FROM'], edge['TO']),
             axis=1
         )
-        pass
     
     def start(self, start, end):
-        self.move_list = self.path_planner.create_path(self.robot, start, end)
+        #move_start_point = self.path_planner.create_path(self.robot, 0, start)
+        start_to_end = self.path_planner.create_path(self.robot, start, end)
+        
+        self.move_list = start_to_end
     

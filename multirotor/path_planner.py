@@ -21,7 +21,10 @@ class NavigationNode():
         else:
             dist_z = (self.z - node2.z)**2
         
-        return math.sqrt(dist_x + dist_y + dist_z)
+        if self.type == 'END' or node2.type == 'END':
+            return 10*math.sqrt(dist_x + dist_y + dist_z)
+        else:
+            return math.sqrt(dist_x + dist_y + dist_z)
     
     #tostring
     def __str__(self):
@@ -31,7 +34,7 @@ class PathPlanner():
     
     def __init__(self, coordinates=[], edges=[]):
         self.nodes = []
-        self.graph = Graph()
+        self.graph = Graph(undirected=True)
         
         for coordinate in coordinates:
             self.nodes.append(NavigationNode(coordinate[1], coordinate[0], coordinate[2])) #si scambiano x e z a causa del ref. frame di godot
@@ -79,4 +82,6 @@ class PathPlanner():
             current_z = node.z
             current_x = node.x
             current_y = node.y
+            
+        self.path = path
         return move_list
