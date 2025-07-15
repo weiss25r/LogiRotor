@@ -10,7 +10,7 @@
 [ext_resource type="Script" uid="uid://pi57f5jdt6gj" path="res://spring_arm_3d.gd" id="6_ioo17"]
 [ext_resource type="PackedScene" uid="uid://b3580pn26ewgu" path="res://obstacle.tscn" id="7_pkg7o"]
 [ext_resource type="PackedScene" uid="uid://bx7t6nwwgf2aw" path="res://wharehouse.tscn" id="8_gbfbk"]
-[ext_resource type="ArrayMesh" uid="uid://dkhodex2rpftt" path="res://assets/Van.obj" id="12_k3n1d"]
+[ext_resource type="ArrayMesh" uid="uid://0hxv2kgqds20" path="res://assets/Van.obj" id="12_k3n1d"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ykxtl"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)

@@ -2,13 +2,13 @@ from multirotor import *
 from path_planner import *
 
 class ControlSystem:
-    def __init__(self, x_origin=0, y_origin=0, z_origin=0, start_package = 1):
-        self.robot = Multirotor(x_origin = x_origin, y_origin=y_origin, z_origin=z_origin)
+    def __init__(self, robot, coordinates_path="", edges_path=""):
+        self.robot = robot
         self.path_planner = PathPlanner()
         self.move_list = []
-        self.start_package = start_package
-    
-    def create_graph(self, coordinates_path, edges_path):
+        self.__create_graph__(coordinates_path, edges_path)
+        
+    def __create_graph__(self, coordinates_path, edges_path):
         coords = pd.read_csv(coordinates_path, sep=';')
         edges = pd.read_csv(edges_path, sep=' ')
         
@@ -22,10 +22,18 @@ class ControlSystem:
             axis=1
         )
         
-        self.move_list = self.path_planner.create_path(self.robot, 0, self.start_package)
     
-    def start(self, start, end):
-        start_to_end = self.path_planner.create_path(self.robot, start, end)
+    def start(self, package_order, package_map):
         
-        self.move_list = self.move_list + start_to_end
+        last_position = 0
+        move_list = []
+        
+        for package in package_order:
+            move_list = move_list + self.path_planner.create_path(self.robot, last_position, package)
+            move_list = move_list + self.path_planner.create_path(self.robot, package, package_map[package])
+            last_position = package_map[package]
+        
+        move_list = move_list + self.path_planner.create_path(self.robot, last_position, 0)
+        move_list.append(ZMovement(self.robot, 0.060))
+        self.move_list = move_list
     
