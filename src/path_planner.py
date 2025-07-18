@@ -1,6 +1,6 @@
 import math
 import pandas as pd
-from multirotor import *
+from src.multirotor import *
 from dijkstar import *
 
 class NavigationNode():

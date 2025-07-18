@@ -1,0 +1,14 @@
+{
+  "x_origin": 12.117,
+  "y_origin": 6.370,
+  "z_origin": 0.06,
+  "package_order": [1, 2, 3, 4],
+  "package_map": {
+    "1": 13,
+    "2": 12,
+    "3": 18,
+    "4": 21
+  },
+  "save_graphs": false,
+  "graphs_save_path": "../graphs/trajectory_graph.png"
+}

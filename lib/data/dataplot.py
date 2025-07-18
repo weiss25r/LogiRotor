@@ -42,7 +42,7 @@ class DataPlotter:
         DataPlotter.FIGURE += 1
 
 
-def plot_multiple(plotters, figsize=(20, 18)):
+def plot_multiple(plotters, figsize=(20, 18), save=False, save_path=None):
     """
     Plots multiple DataPlotter objects as subplots in a single figure
     :param plotters: list of DataPlotter objects
@@ -63,7 +63,12 @@ def plot_multiple(plotters, figsize=(20, 18)):
         pylab.legend()
 
     pylab.tight_layout()
-    pylab.show()
+    
+    if save:
+        pylab.savefig(save_path)
+    else:
+        pylab.show()
+        
     DataPlotter.FIGURE += 1
 
 

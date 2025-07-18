@@ -1,16 +1,46 @@
-from control_system import *
+from src.multirotor import *
+from src.path_planner import *
 from lib.dds.dds import *
 from lib.data.dataplot import *
 
-class Courier():
-    
-    def __init__(self, x_origin, y_origin, z_origin, coordinates_path, edges_path, package_order, package_map):
-        self.robot = Multirotor(x_origin = x_origin, y_origin=y_origin, z_origin=z_origin)
-        self.control_system = ControlSystem(self.robot, coordinates_path, edges_path)
-        self.control_system.start(package_order, package_map)
-    
-    def start_loop(self):
+class ControlSystem:
+    def __init__(self, robot, coordinates_path="", edges_path=""):
+        self.robot = robot
+        self.path_planner = PathPlanner()
+        self.move_list = []
+        self.__create_graph__(coordinates_path, edges_path)
         
+    def __create_graph__(self, coordinates_path, edges_path):
+        coords = pd.read_csv(coordinates_path, sep=';')
+        edges = pd.read_csv(edges_path, sep=' ')
+        
+        coords.apply(
+            func = lambda node: self.path_planner.add_node(NavigationNode(x=node['Y'], y=node['X'], z=node['Z'], node_type=node['TYPE'])), 
+            axis=1
+        )
+        
+        edges.apply(
+            func = lambda edge: self.path_planner.add_edge(edge['FROM'], edge['TO']),
+            axis=1
+        )
+        
+    
+    def start(self, package_order, package_map):
+        
+        last_position = 0
+        move_list = []
+        
+        for package in package_order:
+            move_list = move_list + self.path_planner.create_path(self.robot, last_position, package)
+            move_list = move_list + self.path_planner.create_path(self.robot, package, package_map[package])
+            last_position = package_map[package]
+        
+        move_list = move_list + self.path_planner.create_path(self.robot, last_position, 0)
+        move_list.append(ZMovement(self.robot, 0.060))
+        self.move_list = move_list
+        
+    def run(self):
+            
         self.time_axis = []
         self.x_movements = []
         self.y_movements = []
@@ -24,7 +54,7 @@ class Courier():
         dds.start()
         
         
-        move_list = self.control_system.move_list
+        move_list = self.move_list.copy()
         
         move_command = move_list.pop(0)
         move_command.start()
@@ -67,10 +97,7 @@ class Courier():
                 move_command.evaluate(delta_t)
                 
                 if move_command.movement_done():
-                    print("FINITO MOVIMENTO")
-                    
                     if move_list == []:
-                        print("FINITO")
                         break
                         
                     move_command = move_list.pop(0)
@@ -95,8 +122,8 @@ class Courier():
         dds.publish('f4', 0, DDS.DDS_TYPE_FLOAT)
 
         dds.stop()
-
-    def plot_graph(self):
+        
+    def plot_graph(self, save=False, save_path=None):
         dpx = DataPlotter()
         dpx.set_x("time (seconds)")
         dpx.add_y("target_x", "target_x")
@@ -152,4 +179,5 @@ class Courier():
             dpz.append_y("target_z", self.z_movements[i][1])
             dpz.append_y("current_z", self.z_movements[i][0])
             
-        plot_multiple([dpvy, dpy, dpvx, dpx, dpvz, dpz])
+        plot_multiple([dpvy, dpy, dpvx, dpx, dpvz, dpz], save=save, save_path=save_path)
+    
