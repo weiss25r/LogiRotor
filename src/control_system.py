@@ -4,7 +4,22 @@ from lib.dds.dds import *
 from lib.data.dataplot import *
 
 class ControlSystem:
+    """
+    Classe rappresentante l'intero sistema di controllo del multirotore per portare i pacchetti da un punto all'altro
+    """
+    
+    #italiano
+    
     def __init__(self, robot, coordinates_path="", edges_path=""):
+        
+        """
+        Inizializza il ControlSystem con i parametri per creare il grafo di navigazione.
+        
+        :param robot: riferimento al multirotore
+        :param coordinates_path: path del file csv contenente le coordinate dei nodi
+        :param edges_path: path del file txt contenente gli archi tra i nodi
+        """
+        
         self.robot = robot
         self.path_planner = PathPlanner()
         self.move_list = []
@@ -27,6 +42,17 @@ class ControlSystem:
     
     def start(self, package_order, package_map):
         
+        """
+        Crea la lista di movimenti per consegnare i pacchetti presenti in package_order secondo il dizionario package_map
+        
+        Deve essere eseguito prima del metodo run()
+        
+        :param package_order: lista di indici dei pacchetti da consegnare
+        :param package_map: mappa che associa ad ogni indice di pacchetto l'indice
+                            del nodo di consegna corrispondente
+        """
+        
+        
         last_position = 0
         move_list = []
         
@@ -41,6 +67,13 @@ class ControlSystem:
         
     def run(self):
             
+        """
+        Esegue la lista di movimenti creata con il metodo start utilizzando il DDS per comunicare con Godot
+
+        Deve essere eseguito dopo il metodo start()
+
+        :return: None
+        """
         self.time_axis = []
         self.x_movements = []
         self.y_movements = []
@@ -52,7 +85,6 @@ class ControlSystem:
         
         dds = DDS()
         dds.start()
-        
         
         move_list = self.move_list.copy()
         
@@ -83,6 +115,8 @@ class ControlSystem:
             pitch = dds.read('TY')
             pitch_rate = dds.read('WY')
             
+            
+            #logica di aggancio/sgancio            
             if type(move_command) == AttachMovement:
                 dds.publish('attached', move_command.evaluate(delta_t), DDS.DDS_TYPE_INT)
                 
@@ -108,6 +142,7 @@ class ControlSystem:
             dds.publish('f3', f3, DDS.DDS_TYPE_FLOAT)
             dds.publish('f4', f4, DDS.DDS_TYPE_FLOAT)
 
+            #salva i dati per i grafici
             self.time_axis.append(t.get())
             self.vx_axis.append((vx, self.robot.vx_target))
             self.vy_axis.append((vy, self.robot.vy_target))
@@ -115,7 +150,8 @@ class ControlSystem:
             self.x_movements.append((x, self.robot.x_target))
             self.y_movements.append((y, self.robot.y_target))
             self.z_movements.append((z, self.robot.z_target))
-            
+         
+        #"spegne" il multirotore   
         dds.publish('f1', 0, DDS.DDS_TYPE_FLOAT)
         dds.publish('f2', 0, DDS.DDS_TYPE_FLOAT)
         dds.publish('f3', 0, DDS.DDS_TYPE_FLOAT)
@@ -123,7 +159,16 @@ class ControlSystem:
 
         dds.stop()
         
+    
     def plot_graph(self, save=False, save_path=None):
+        """
+        Salva o visualizza (per esempio su notebook Jupyter) i grafici di posizione e velocita' rispetto al tempo
+
+        :param save: se True, salva i grafici in un file
+        :param save_path: percorso del file in cui salvare i grafici
+        :return: None
+        """
+        
         dpx = DataPlotter()
         dpx.set_x("time (seconds)")
         dpx.add_y("target_x", "target_x")

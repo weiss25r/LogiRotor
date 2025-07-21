@@ -6,7 +6,6 @@ project_root = os.path.abspath(os.path.join(os.path.abspath(''), '..'))
 
 if project_root not in sys.path:
     sys.path.insert(0, project_root)
-    
 
 from lib.data.dataplot import *
 from lib.utils.time import *
@@ -14,6 +13,10 @@ from lib.system.controllers import *
 from lib.system.trajectory import *
 
 class Multirotor:
+    
+    """
+    Classe che modella un Multirotore a 4 eliche ad X, comprensiva dei controller PID necessari
+    """
 
     def __init__(self, x_origin, y_origin, z_origin):
         self.vz_control = PID_Controller(5.0, 10.0, 0.0, 5)
@@ -67,7 +70,6 @@ class Multirotor:
         return f + roll_command - pitch_command, f - roll_command - pitch_command, \
                 f - roll_command + pitch_command, f + roll_command + pitch_command
 
-
 class AbstractMovement:
     
     def __init__(self, _robot):
@@ -83,6 +85,9 @@ class AbstractMovement:
         return False
 
 class AttachMovement():
+    """
+    Classe che rappresenta il movimento di aggancio o sgancio di un pacchetto
+    """
     def __init__(self, movement):
         self.movement = movement
     def start(self):
@@ -92,8 +97,6 @@ class AttachMovement():
     
     def movement_done(self):
         return False 
-    
-    
     
 class ZMovement(AbstractMovement):
     
@@ -130,29 +133,3 @@ class XYMovement(AbstractMovement):
         dy = self.y_target - self.robot.y
         dist = math.sqrt(dx*dx + dy*dy)
         return dist < 0.1
-     
-
-class Circle(AbstractMovement):
-    
-    def __init__(self, _robot, _radius):
-        super().__init__(_robot)
-        self.radius = _radius
-        self.virtual_drone = VirtualRobot(2 * math.pi *_radius, 0.5, 4.0, 4.0)
-        
-    def start(self):
-        self.center_x = self.robot.x
-        self.center_y = self.robot.y
-        
-    def evaluate(self, delta_t):
-        self.virtual_drone.evaluate(delta_t)
-        arc = self.virtual_drone.position()
-        angle = arc / self.radius
-        x_t = self.radius * math.cos(angle)
-        y_t = self.radius * math.sin(angle)
-        self.robot.x_target = x_t
-        self.robot.y_target = y_t
-        
-    def movement_done(self):
-        return self.virtual_drone.phase == VirtualRobot.TARGET
-    
-
