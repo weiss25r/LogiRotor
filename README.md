@@ -14,14 +14,19 @@ Per la simulazione del drone e del relativo ambiente è stato scelto di utilizza
 - `config` contiene i file di configurazione della simulazione:
   - *coordinates.csv* : contiente le coordinate dei nodi del grafo del percorso del drone
   - *edges.txt*: contiene tutti gli archi del grafo non orientato
-- `graphs` contiene i grafici che mostrano posizione e velocità del drone rispetto alla traitettoria da seguire (tecnica del Virtual Robot)
+  - **.json*: due file contententi i settaggi delle istruzioni del multirotore
 
+
+- `docs` contiene l'immagine del grafo usato per l'algoritmo di path-planning
 - `godot` contiene tutti i file relativi alla scena godot, incluso il file progetto
-
-- `notebooks` contiene un notebook di esempio per la simulazione e la visualizzazione dei grafici
+- `graphs` contiene i grafici che mostrano posizione e velocità del drone rispetto alla traitettoria da seguire (tecnica del Virtual Robot)
 - `lib` contiene le librerie del corso relative al controllo del multirotore e alla sua interfaccia con godot
+- `notebooks` contiene un notebook di esempio per la simulazione e la visualizzazione dei grafici
 - `src` contiene la logica di controllo e navigazione del multirotore:
-  - *template*:
+  - *multirotor.py*: contiene la modellazione di un multirotore a quattro eliche con forma ad X, comprensivo delle classi rappresentanti i movimenti effettuati dal robot;
+  - *path_planner.py*: contiene la classe Path_Planner che si occupa della creazione di un percorso per il robot, a partire dal grafo di navigazione;
+  - *control_system.py*: contiene la classe Control System che si occupa della simulazione e comunicazione con godot;
+  - *courier.py*: contiene la classe Courier che orchestra i vari componenti per la simulazione;
 ## Esecuzione
 
 Assicurarsi di aver creato un ambiente virtuale dove poter installare le dipendenze necessarie, successivamente clonare il progetto
@@ -43,8 +48,11 @@ Installare le dipendenze
 ```bash
   pip install requirements.txt
 ```
-Avviare Godot importando il file del progetto ed eseguire la scena, infine eseguire lo script `main.py`
+Avviare **Godot** importando il file del progetto ed **eseguire la scena**, infine eseguire lo script `main.py`:
 
+```bash
+  python main.py
+```
 
 
 
