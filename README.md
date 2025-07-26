@@ -28,7 +28,7 @@ Per la simulazione del drone e del relativo ambiente è stato scelto di utilizza
   - *control_system.py*: contiene la classe Control System che si occupa della simulazione e comunicazione con godot;
   - *courier.py*: contiene la classe Courier che orchestra i vari componenti per la simulazione;
 ## Esecuzione
-
+Per la corretta  esecuzione è necessario **Godot 4.4.1** o superiore.
 Assicurarsi di aver creato un ambiente virtuale dove poter installare le dipendenze necessarie, successivamente clonare il progetto
 
 
