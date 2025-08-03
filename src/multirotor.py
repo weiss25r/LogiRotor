@@ -84,7 +84,7 @@ class AbstractMovement:
     def movement_done(self):
         return False
 
-class AttachMovement():
+class AttachMovement(AbstractMovement):
     """
     Classe che rappresenta il movimento di aggancio o sgancio di un pacchetto
     """

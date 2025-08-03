@@ -7,9 +7,6 @@ class ControlSystem:
     """
     Classe rappresentante l'intero sistema di controllo del multirotore per portare i pacchetti da un punto all'altro
     """
-    
-    #italiano
-    
     def __init__(self, robot, coordinates_path="", edges_path=""):
         
         """
