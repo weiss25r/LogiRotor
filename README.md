@@ -1,55 +1,41 @@
 
 # LogiRotor
 
-## Descrizione
-Il seguente repository è relativo al progetto dell'insegnamento [Sistemi Robotici](https://www.dmi.unict.it/santoro/index.php?p=21), tenuto presso il Dipartimento di Matematica e Informatica dell'Università di Catania. LogiRotor è un multirotore autonomo progettato per l'ottimizzazione della logistica pacchi all'interno di ambienti di magazzino.
+## Description
+**LogiRotor** is a multirotor designed for optimizing package logistics within warehouse environments.
+It is capable of transporting packages within the environment.
+The project is related to the final exam for the course "Robotic Systems" held at the Department of Mathematics and Computer Science of the University of Catania by prof. Corrado Santoro.
 
-## Strumenti
+## Tools
 
-Per la simulazione del drone e del relativo ambiente è stato scelto di utilizzare il software [Godot Engine](https://godotengine.org/). Per quanto riguarda invece la gestione del sistema dinamico del multirotore e delle sue istruzioni di consegna, sono stati creati script python e notebook jupyter. Le [librerie del corso](https://github.com/corradosantoro/RoboticSystems/tree/main/lib), infine, sono state impiegate per poter interfacciarsi con la simulazione del drone tramite godot 
+To simulate the drone and its environment, the software [Godot Engine](https://godotengine.org/) was chosen.  
+For the management of the multirotor's dynamic system and its delivery instructions, Python scripts and Jupyter notebooks were created.  
+The [course libraries](https://github.com/corradosantoro/RoboticSystems/tree/main/lib) were used to interface with the drone simulation via Godot using a publisher-subscriber architecture.
 
+## Project Structure
 
-## Struttura del Progetto
+- `config` contains the simulation configuration files:
+  - *coordinates.csv*: contains the coordinates of the nodes in the drone path graph  
+  - *edges.txt*: contains all the edges of the undirected graph  
+  - *.json*: two files containing the multirotor instruction settings
 
-- `config` contiene i file di configurazione della simulazione:
-  - *coordinates.csv* : contiente le coordinate dei nodi del grafo del percorso del drone
-  - *edges.txt*: contiene tutti gli archi del grafo non orientato
-  - **.json*: due file contententi i settaggi delle istruzioni del multirotore
+- `docs` contains screenshots and an image representing the graph created
+- `godot` contains all files related to the Godot scene, including the project file  
+- `graphs` contains charts showing the drone’s position and speed along the trajectory (Virtual Robot technique)  
+- `lib` contains the course libraries related to multirotor control via PID controllers
+- `notebooks` contains a sample notebook for simulation and chart visualization  
+- `src` contains the control and navigation logic of the multirotor:
+  - *multirotor.py*: includes the model of a quadcopter with X-shaped configuration, including classes representing the robot's movements  
+  - *path_planner.py*: includes the `Path_Planner` class responsible for creating a path for the robot based on the navigation graph, using shortest path algorithms
+  - *control_system.py*: includes the `Control_System` class responsible for simulation and communication with Godot  
+  - *courier.py*: includes the `Courier` class that orchestrates the various components for simulation  
 
+## Execution
 
-- `docs` contiene l'immagine del grafo usato per l'algoritmo di path-planning
-- `godot` contiene tutti i file relativi alla scena godot, incluso il file progetto
-- `graphs` contiene i grafici che mostrano posizione e velocità del drone rispetto alla traitettoria da seguire (tecnica del Virtual Robot)
-- `lib` contiene le librerie del corso relative al controllo del multirotore e alla sua interfaccia con godot
-- `notebooks` contiene un notebook di esempio per la simulazione e la visualizzazione dei grafici
-- `src` contiene la logica di controllo e navigazione del multirotore:
-  - *multirotor.py*: contiene la modellazione di un multirotore a quattro eliche con forma ad X, comprensivo delle classi rappresentanti i movimenti effettuati dal robot;
-  - *path_planner.py*: contiene la classe Path_Planner che si occupa della creazione di un percorso per il robot, a partire dal grafo di navigazione;
-  - *control_system.py*: contiene la classe Control System che si occupa della simulazione e comunicazione con godot;
-  - *courier.py*: contiene la classe Courier che orchestra i vari componenti per la simulazione;
-## Esecuzione
-Per la corretta  esecuzione è necessario **Godot 4.4.1** o superiore.
-Assicurarsi di aver creato un ambiente virtuale dove poter installare le dipendenze necessarie, successivamente clonare il progetto
-
-
-
-```bash
-  git clone https://github.com/eddy2809/LogiRotor.git
-```
-
-spostartsi nella cartella pricipale del progetto 
-
-```bash
-  cd LogiRotor
-```
-
-Installare le dipendenze
-
-```bash
-  pip install requirements.txt
-```
-Avviare **Godot** importando il file del progetto ed **eseguire la scena**, infine eseguire lo script `main.py`:
-
+To run the project properly, **Godot 4.4.1** or higher is required.  
+Make sure to create a virtual environment to install the required dependencies listed in `requirements.txt`, then clone the project:
+After cloning the repository and installing the dependencies, run **Godot**, import the project file and execute the scene.
+To run the simulation, execute `main.py`:
 ```bash
   python main.py
 ```
@@ -59,7 +45,7 @@ Avviare **Godot** importando il file del progetto ed **eseguire la scena**, infi
 ![](docs/screenshot_2.png)
 ![](docs/screenshot_3.png)
 
-## Autori
+## Authors
 
 - [@eddy2809](https://www.github.com/eddy2809)
 - [@weiss25r](https://www.github.com/weiss25r)
