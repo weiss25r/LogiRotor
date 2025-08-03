@@ -9,7 +9,9 @@ The project is related to the final exam for the course "Robotic Systems" held a
 ## Tools
 
 To simulate the drone and its environment, the software [Godot Engine](https://godotengine.org/) was chosen.  
-For the management of the multirotor's dynamic system and its delivery instructions, Python scripts and Jupyter notebooks were created.  
+
+For delivery instructions, PID control and path planning Python scripts were created, using an object-oriented approach.
+
 The [course libraries](https://github.com/corradosantoro/RoboticSystems/tree/main/lib) were used to interface with the drone simulation via Godot using a publisher-subscriber architecture.
 
 ## Project Structure
