@@ -54,7 +54,10 @@ Avviare **Godot** importando il file del progetto ed **eseguire la scena**, infi
   python main.py
 ```
 
-
+## Screenshots
+![](docs/screenshot_1.png)
+![](docs/screenshot_2.png)
+![](docs/screenshot_3.png)
 
 ## Autori
 
