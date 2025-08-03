@@ -3,9 +3,9 @@
 
 ## Description
 **LogiRotor** is a multirotor designed for optimizing package logistics within warehouse environments.
-It is capable of transporting packages within the environment.
-The project is related to the final exam for the course  [Robotic Systems](https://www.dmi.unict.it/santoro/index.php?p=21), held at the Department of Mathematics and Computer Science of the University of Catania by prof. Corrado Santoro.
-
+It is capable of delivering package from a source to a destination within a 3D environment.
+LogiRotor was made as part of the final exam for the course  [Robotic Systems](https://www.dmi.unict.it/santoro/index.php?p=21), held at the Department of Mathematics and Computer Science of the University of Catania by prof. Corrado Santoro.
+The course is part of a Master Degree in Computer Science focusing on Data Science.
 ## Tools
 
 To simulate the drone and its environment, the software [Godot Engine](https://godotengine.org/) was chosen.  
