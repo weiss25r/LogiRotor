@@ -43,7 +43,7 @@ To run the simulation, execute `main.py`:
 ```
 
 ## Links
-The warehouse and van models were downloaded from the following sources.
+The warehouse and van models were downloaded from the following sources. <br />
 [Warehouse](https://www.cgtrader.com/free-3d-models/architectural/other/warehouse-b15a118c-5c36-4272-9f23-eb9de911a8bc)
 [Van](https://www.cgtrader.com/free-3d-models/vehicle/truck/cargo-van-with-platform-of-the-nineties-3d-model)
 
